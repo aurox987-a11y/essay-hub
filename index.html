@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Essay Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:#0f0f1a;
+  color:white;
+  padding:20px 15px;
+  min-height:100vh;
+  overflow-x:hidden;
+  position:relative;
+}
+
+/* Neon Glow */
+body::before,
+body::after{
+  content:'';
+  position:fixed;
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  filter:blur(120px);
+  animation:glow 6s infinite alternate;
+  z-index:-1;
+}
+
+body::before{
+  top:-60px;
+  left:-60px;
+  background:#00f0ff;
+}
+
+body::after{
+  bottom:-60px;
+  right:-60px;
+  background:#ff00ea;
+}
+
+@keyframes glow{
+  from{opacity:0.4; transform:scale(1);}
+  to{opacity:0.9; transform:scale(1.2);}
+}
+
+/* Logo */
+.logo{
+  text-align:center;
+  margin-top:40px;
+}
+
+.logo-wrapper{
+  display:inline-flex;
+  font-weight:800;
+  font-size:26px;
+  border-radius:8px;
+  overflow:hidden;
+}
+
+.logo-wrapper .essay{
+  background:black;
+  color:white;
+  padding:8px 16px;
+}
+
+.logo-wrapper .hub{
+  background:orange;
+  color:black;
+  padding:8px 16px;
+}
+
+/* Search */
+.search-box{
+  margin:30px auto;
+  max-width:500px;
+  display:flex;
+  border-radius:40px;
+  overflow:hidden;
+  background:white;
+}
+
+.search-box input{
+  flex:1;
+  padding:14px;
+  border:none;
+  outline:none;
+  font-size:14px;
+}
+
+.search-box button{
+  width:55px;
+  border:none;
+  background:#00f0ff;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:0.3s;
+}
+
+.search-box button:hover{
+  background:#ff00ea;
+}
+
+.search-box svg{
+  width:20px;
+  height:20px;
+  fill:black;
+}
+
+/* Container */
+.container{
+  max-width:900px;
+  margin:auto;
+  display:grid;
+  gap:18px;
+}
+
+.empty{
+  text-align:center;
+  margin-top:60px;
+  opacity:0.6;
+}
+
+/* Card */
+.card{
+  background:rgba(255,255,255,0.06);
+  border-radius:18px;
+  padding:22px;
+  border:1px solid rgba(255,255,255,0.1);
+  transition:0.4s;
+}
+
+.card:hover{
+  border:1px solid #00f0ff;
+}
+
+.btn{
+  display:inline-block;
+  padding:10px 20px;
+  border:2px solid #ff00ea;
+  border-radius:30px;
+  text-decoration:none;
+  color:#ff00ea;
+  font-size:13px;
+  transition:0.3s;
+}
+
+.btn:hover{
+  background:#ff00ea;
+  color:black;
+}
+
+/* Desktop */
+@media(min-width:700px){
+  .container{
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="logo">
+  <div class="logo-wrapper">
+    <div class="essay">ESSAY</div>
+    <div class="hub">HUB</div>
+  </div>
+</div>
+
+<div class="search-box">
+  <input type="text" id="searchInput" placeholder="Search essays...">
+  <button onclick="searchEssay()">
+    <!-- Magnifying Glass SVG -->
+    <svg viewBox="0 0 24 24">
+      <path d="M10 2a8 8 0 105.293 14.293l4.207 4.207 1.414-1.414-4.207-4.207A8 8 0 0010 2zm0 2a6 6 0 110 12 6 6 0 010-12z"/>
+    </svg>
+  </button>
+</div>
+
+<div class="container" id="essayContainer"></div>
+
+<div class="empty" id="emptyMessage">
+  🚫 No essays uploaded yet.
+</div>
+
+<script>
+function searchEssay(){
+  let input=document.getElementById("searchInput").value.toLowerCase();
+  let cards=document.getElementsByClassName("card");
+
+  for(let i=0;i<cards.length;i++){
+    let title=cards[i].getElementsByTagName("h3")[0].innerText.toLowerCase();
+    cards[i].style.display = title.includes(input) ? "block" : "none";
+  }
+}
+
+window.onload = function(){
+  let container = document.getElementById("essayContainer");
+  let empty = document.getElementById("emptyMessage");
+  if(container.children.length > 0){
+    empty.style.display = "none";
+  }
+}
+</script>
+
+</body>
+</html>
