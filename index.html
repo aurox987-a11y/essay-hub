@@ -209,6 +209,19 @@ function searchEssay(){
 window.onload = function(){
   let container = document.getElementById("essayContainer");
   let empty = document.getElementById("emptyMessage");
+
+  // Holi Essay Card
+  container.innerHTML += `
+    <div class="card">
+      <h3>Holi Essay (2-3 Pages)</h3>
+      <p>Festival of Colours – Detailed PDF</p>
+      <br>
+      <a href="pdf/Holi_Essay_2-3_Pages.pdf" target="_blank" class="btn">
+        Download PDF
+      </a>
+    </div>
+  `;
+
   if(container.children.length > 0){
     empty.style.display = "none";
   }
